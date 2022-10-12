@@ -2,11 +2,7 @@
 """Awesome `pylib_semver` is a Python cli/package created with https://github.com/TezRomacH/python-package-template"""
 
 import sys
-
-if sys.version_info >= (3, 8):
-    from importlib import metadata as importlib_metadata
-else:
-    import importlib_metadata
+from importlib import metadata as importlib_metadata
 
 
 def get_version() -> str:
