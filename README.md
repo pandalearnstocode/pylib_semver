@@ -1,5 +1,6 @@
 # pylib_semver
 
+
 <div align="center">
 
 [![Build status](https://github.com/pandalearnstocode/pylib_semver/workflows/build/badge.svg?branch=master&event=push)](https://github.com/pandalearnstocode/pylib_semver/actions?query=workflow%3Abuild)
