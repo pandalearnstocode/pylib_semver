@@ -8,20 +8,9 @@ on:
       - synchronize
 
 jobs:
-  branch_name:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Validate branch name
-        uses: AlbertHernandez/branch-name-action@v1.0.2
-        with:
-          branch_pattern: 'feat|fix|patch|docs|style|refactor|perf|test|build|ci|chore|revert'
-          comment_for_invalid_branch_name: 'Please correct branch name!'
-          fail_if_invalid_branch_name: 'true'
-          ignore_branch_pattern: 'master|develop|staging'
   pr_title:
     name: Validate PR title
     runs-on: ubuntu-latest
-    needs: branch_name
     steps:
       - name: Validate Pull Request
         uses: amannn/action-semantic-pull-request@v5
