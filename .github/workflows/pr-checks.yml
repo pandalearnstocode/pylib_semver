@@ -178,7 +178,7 @@ jobs:
         git fetch --all
     - name: Build and publish wiki
       run:  |
-        poetry run mike set-default --push latest
         poetry run mike deploy --push --update-aliases ${{ env.LIBRARY_VERSION }} latest
+        poetry run mike set-default --push latest
       env:
         LIBRARY_VERSION: ${{ steps.getversion.version}}
