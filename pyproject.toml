@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "pylib_semver"
-version = "0.0.1"
+version = "0.0.2"
 description = "Awesome `pylib_semver` is a Python cli/package created with https://github.com/TezRomacH/python-package-template"
 readme = "README.md"
 authors = ["pandalearnstocode <pandalearnstocode@gmail.com>"]

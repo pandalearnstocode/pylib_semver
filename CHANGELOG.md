@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.0.2 (2022-10-12)
+### Fix
+* **ci:** Adding BREAKING in types ([`a4c5cd0`](https://github.com/pandalearnstocode/pylib_semver/commit/a4c5cd09bb3bd74a881ed3a7e18144b0434df3be))
+
 ## v0.0.1 (2022-10-12)
 ### Fix
 * **ci:** Adding BREAKING CHANGE ([`cadeb4e`](https://github.com/pandalearnstocode/pylib_semver/commit/cadeb4e1b8209537a9c6987fa81bfdd62413f70e))
