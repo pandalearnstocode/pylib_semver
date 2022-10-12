@@ -48,10 +48,10 @@ jupyter = "^1.0.0"
 notebook = "^6.4.12"
 dvc = "^2.30.0"
 dvc-azure = "^2.20.4"
+black = "22.3.0"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.7.1"
-black = {version = "^21.10b0", allow-prereleases = true}
 darglint = "^1.8.1"
 isort = {extras = ["colors"], version = "^5.10.1"}
 mypy = "^0.910"
