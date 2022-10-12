@@ -1,5 +1,6 @@
 # pylib_semver
 
+
 <div align="center">
 
 [![Build status](https://github.com/pandalearnstocode/pylib_semver/workflows/build/badge.svg?branch=master&event=push)](https://github.com/pandalearnstocode/pylib_semver/actions?query=workflow%3Abuild)
@@ -26,6 +27,7 @@ Awesome `pylib_semver` is a Python cli/package created with https://github.com/T
 ```bash
 cd pylib_semver && git init
 ```
+
 
 
 2. If you don't have `Poetry` installed run:
