@@ -1,0 +1,15 @@
+ci:
+  - .github/**/*
+  - .gitignore
+  - "*.yml"
+
+enhancement:
+  - "pylib_semver/*"
+
+test:
+  - "tests/*.py"
+
+docs:
+  - "*.md"
+  - "**/*.md"
+  - "docs/*.md"
