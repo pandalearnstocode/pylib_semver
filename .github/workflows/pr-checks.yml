@@ -1,0 +1,195 @@
+name: "Pull Request Checks"
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  branch_name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate branch name
+        uses: AlbertHernandez/branch-name-action@v1.0.2
+        with:
+          branch_pattern: 'feat|fix|patch|docs|style|refactor|perf|test|build|ci|chore|revert'
+          comment_for_invalid_branch_name: 'Please correct branch name!'
+          fail_if_invalid_branch_name: 'true'
+          ignore_branch_pattern: 'master|develop|staging'
+  pr_title:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    needs: branch_name
+    steps:
+      - name: Validate Pull Request
+        uses: amannn/action-semantic-pull-request@v5
+        with:
+          types: |
+            feat
+            fix
+            patch
+            docs
+            style
+            refactor
+            perf
+            test
+            build
+            ci
+            chore
+            revert
+          scopes: |
+            source
+            ci
+            cd
+            wiki
+            docstring
+            refactor
+            formatting
+            style
+            linting
+            test
+            build
+            profiling
+            refactor
+          requireScope: true
+          disallowScopes: |
+            release
+          subjectPattern: ^(?![A-Z]).+$
+          subjectPatternError: |
+            The subject "{subject}" found in the pull request title "{title}"
+            didn't match the configured pattern. Please ensure that the subject
+            doesn't start with an uppercase character.
+          ignoreLabels: |
+            bot
+            ignore-semantic-pull-request
+          headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
+          headerPatternCorrespondence: type, scope, subject
+          wip: true
+          validateSingleCommit: true
+          validateSingleCommitMatchesPrTitle: true
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  create_label:
+    runs-on: ubuntu-latest
+    needs: pr_title
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+    - name: Label PR
+      uses: actions/labeler@v4
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: .github/labeler.yml
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  build:
+    runs-on: ubuntu-latest
+    needs: create_label
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+    steps:
+    - name: Install system level libraries
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install libpq-dev gcc
+    - name: Fetch latest code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+    - name: Install poetry
+      run: make poetry-download
+    - name: Install Python dependencies
+      run: |
+        poetry config virtualenvs.in-project true
+        poetry install -n
+    - name: Set up cache
+      uses: actions/cache@v3.0.10
+      with:
+        path: .venv
+        key: venv-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('poetry.lock') }}
+    - name: Run style checks
+      run: |
+        poetry run pyupgrade --exit-zero-even-if-changed --py38-plus **/*.py
+        poetry run isort --settings-path pyproject.toml ./
+        poetry run black --config pyproject.toml ./
+        poetry run isort --diff --check-only --settings-path pyproject.toml ./
+        poetry run black --diff --check --config pyproject.toml ./
+        poetry run darglint --verbosity 2 lola_algo_store_exp tests
+    - name: Run security checks
+      run: |
+        poetry check
+        poetry run safety check --full-report
+        poetry run bandit -ll --recursive lola_algo_store_exp tests
+    - name: Analyzing the code with pylint, flake8 and bandit
+      run: |
+        poetry run pylint $(git ls-files '*.py') -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" --exit-zero > pylint.log
+        poetry run flake8 --exit-zero --output-file=flake8.txt lola_algo_store_exp tests
+        poetry run bandit --exit-zero --format json --output bandit-report.json -r lola_algo_store_exp tests
+    - name: Run tests and generate coverage report
+      run: |
+        make test
+        poetry run coverage run -m pytest -v tests
+        poetry run coverage html
+        poetry run coverage xml
+    - name: TODO (CodeQL, OSSAR, Gitleaks should be here)
+      run: echo "CodeQL, OSSAR, Gitleaks scan and upload should be here"
+    - name: TODO (Sync auto scanning PR has to be enabled)
+      run: echo "TODO (Sync auto scanning PR has to be enabled)"
+    - name: Upload linting errors to to GitHub packages.
+      uses: actions/upload-artifact@v3
+      with:
+        name: linting-reports
+        path: pylint.log
+        retention-days: 5
+    - name: Upload flake8 errors to to GitHub packages.
+      uses: actions/upload-artifact@v3
+      with:
+        name: flake8-reports
+        path: flake8.txt
+        retention-days: 5
+    - name: Upload bandit errors to to GitHub packages.
+      uses: actions/upload-artifact@v3
+      with:
+        name: bandit-reports
+        path: bandit-report.json
+        retention-days: 5
+    - name: Upload pytest errors to to GitHub packages.
+      uses: actions/upload-artifact@v3
+      with:
+        name: xml-reports
+        path: coverage.xml
+        retention-days: 5
+    - name: Upload pytest errors as HTML to to GitHub packages.
+      uses: actions/upload-artifact@v3
+      with:
+        name: html-reports
+        path:
+          'htmlcov/*.*'
+        retention-days: 5
+    - name: TODO SonarCloud Scan
+      run: echo "TODO SonarCloud Scan"
+    - name: Extract library version
+      id: getversion
+      run:  |
+        RV=$(grep -m 1 version pyproject.toml | tr -s ' ' | tr -d '"' | tr -d "'" | cut -d' ' -f3)
+        echo "::set-output name=version::${RV}"
+        echo "$RV"
+    - name: Build and publish wiki
+      run: |
+        git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+        git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
+        git fetch --all
+    - name: Build and publish wiki
+      run:  |
+        mike set-default --push latest
+        mike deploy --push --update-aliases ${{ env.LIBRARY_VERSION }} latest
+      env:
+        LIBRARY_VERSION: ${{ steps.getversion.version}}

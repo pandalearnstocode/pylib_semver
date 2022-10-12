@@ -37,6 +37,17 @@ python = "^3.8"
 
 typer = {extras = ["all"], version = "^0.4.0"}
 rich = "^10.14.0"
+mkdocs = "^1.4.0"
+mkdocs-material = "^8.5.6"
+mkdocstrings = "^0.19.0"
+mkdocstrings-python = "^0.7.1"
+mike = "^1.1.2"
+loguru = "^0.6.0"
+python-semantic-release = "^7.32.1"
+jupyter = "^1.0.0"
+notebook = "^6.4.12"
+dvc = "^2.30.0"
+dvc-azure = "^2.20.4"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.7.1"
@@ -144,3 +155,11 @@ branch = true
 [coverage.report]
 fail_under = 50
 show_missing = true
+
+[tool.semantic_release]
+version_toml = "pyproject.toml:tool.poetry.version"
+major_on_zero = false
+branch = "master"
+upload_to_repository = false
+upload_to_release = true
+build_command = "pip install poetry && poetry build"
