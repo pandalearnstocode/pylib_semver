@@ -111,17 +111,17 @@ jobs:
         poetry run black --config pyproject.toml ./
         poetry run isort --diff --check-only --settings-path pyproject.toml ./
         poetry run black --diff --check --config pyproject.toml ./
-        poetry run darglint --verbosity 2 lola_algo_store_exp tests
+        poetry run darglint --verbosity 2 pylib_semver tests
     - name: Run security checks
       run: |
         poetry check
         poetry run safety check --full-report
-        poetry run bandit -ll --recursive lola_algo_store_exp tests
+        poetry run bandit -ll --recursive pylib_semver tests
     - name: Analyzing the code with pylint, flake8 and bandit
       run: |
         poetry run pylint $(git ls-files '*.py') -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" --exit-zero > pylint.log
-        poetry run flake8 --exit-zero --output-file=flake8.txt lola_algo_store_exp tests
-        poetry run bandit --exit-zero --format json --output bandit-report.json -r lola_algo_store_exp tests
+        poetry run flake8 --exit-zero --output-file=flake8.txt pylib_semver tests
+        poetry run bandit --exit-zero --format json --output bandit-report.json -r pylib_semver tests
     - name: Run tests and generate coverage report
       run: |
         make test
