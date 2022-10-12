@@ -180,4 +180,4 @@ jobs:
       run:  |
         poetry run mike deploy --push ${{ env.LIBRARY_VERSION }}
       env:
-        LIBRARY_VERSION: ${{ steps.getversion.version}}
+        LIBRARY_VERSION: ${{ steps.getversion.outputs.version}}
