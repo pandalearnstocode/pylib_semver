@@ -2882,7 +2882,7 @@ tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
 [[package]]
 name = "stevedore"
-version = "4.0.0"
+version = "4.1.0"
 description = "Manage dynamic plugins for Python applications"
 category = "dev"
 optional = false
@@ -4829,8 +4829,8 @@ stack-data = [
     {file = "stack_data-0.5.1.tar.gz", hash = "sha256:95eb784942e861a3d80efd549ff9af6cf847d88343a12eb681d7157cfcb6e32b"},
 ]
 stevedore = [
-    {file = "stevedore-4.0.0-py3-none-any.whl", hash = "sha256:87e4d27fe96d0d7e4fc24f0cbe3463baae4ec51e81d95fbe60d2474636e0c7d8"},
-    {file = "stevedore-4.0.0.tar.gz", hash = "sha256:f82cc99a1ff552310d19c379827c2c64dd9f85a38bcd5559db2470161867b786"},
+    {file = "stevedore-4.1.0-py3-none-any.whl", hash = "sha256:3b1cbd592a87315f000d05164941ee5e164899f8fc0ce9a00bb0f321f40ef93e"},
+    {file = "stevedore-4.1.0.tar.gz", hash = "sha256:02518a8f0d6d29be8a445b7f2ac63753ff29e8f2a2faa01777568d5500d777a6"},
 ]
 tabulate = [
     {file = "tabulate-0.9.0-py3-none-any.whl", hash = "sha256:024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f"},
@@ -4954,6 +4954,7 @@ webencodings = [
 ]
 wheel = [
     {file = "wheel-0.37.1-py2.py3-none-any.whl", hash = "sha256:4bdcd7d840138086126cd09254dc6195fb4fc6f01c050a1d7236f2630db1d22a"},
+    {file = "wheel-0.37.1-py3-none-any.whl", hash = "sha256:bbb2658b04929e445a903697c9588dd7d20b1b5f9e717843b62963ac92be502d"},
     {file = "wheel-0.37.1.tar.gz", hash = "sha256:e9a504e793efbca1b8e0e9cb979a249cf4a0a7b5b8c9e8b65a5e39d49529c1c4"},
 ]
 widgetsnbextension = [
