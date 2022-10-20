@@ -925,7 +925,7 @@ tests = ["celery-types (>=0.11.0)", "flaky (==3.7.0)", "mypy (==0.971)", "pylint
 
 [[package]]
 name = "dvclive"
-version = "0.12.0"
+version = "0.12.1"
 description = "Metric logger for ML projects."
 category = "main"
 optional = false
@@ -3788,8 +3788,8 @@ dvc-task = [
     {file = "dvc_task-0.1.3-py3-none-any.whl", hash = "sha256:007f7e4eb9b8688d208eeee60176b96e9225e8eb3acb37dac66dddf9c28818c5"},
 ]
 dvclive = [
-    {file = "dvclive-0.12.0-py3-none-any.whl", hash = "sha256:3a3ea900086237f790f1e39227c07bbc7dc4014adfc370a014b29b5eceba3794"},
-    {file = "dvclive-0.12.0.tar.gz", hash = "sha256:ca4538629f2cfde4c371adf6b03f660334bcef311d077185e7c9be38b7d314a6"},
+    {file = "dvclive-0.12.1-py3-none-any.whl", hash = "sha256:3e6fbdab5752527f37a62d873b9133e156e720836c76e1fc7c750b477d4c3e12"},
+    {file = "dvclive-0.12.1.tar.gz", hash = "sha256:9f615e712a7ee1ffcc1d5b5e71680a01b67cc20cd8515478054c4a82ab3301a4"},
 ]
 entrypoints = [
     {file = "entrypoints-0.4-py3-none-any.whl", hash = "sha256:f174b5ff827504fd3cd97cc3f8649f3693f51538c7e4bdf3ef002c8429d42f9f"},
@@ -4954,6 +4954,7 @@ webencodings = [
 ]
 wheel = [
     {file = "wheel-0.37.1-py2.py3-none-any.whl", hash = "sha256:4bdcd7d840138086126cd09254dc6195fb4fc6f01c050a1d7236f2630db1d22a"},
+    {file = "wheel-0.37.1-py3-none-any.whl", hash = "sha256:bbb2658b04929e445a903697c9588dd7d20b1b5f9e717843b62963ac92be502d"},
     {file = "wheel-0.37.1.tar.gz", hash = "sha256:e9a504e793efbca1b8e0e9cb979a249cf4a0a7b5b8c9e8b65a5e39d49529c1c4"},
 ]
 widgetsnbextension = [
