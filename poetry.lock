@@ -1818,8 +1818,8 @@ python-versions = "*"
 [package.dependencies]
 msal = ">=0.4.1,<2.0.0"
 portalocker = [
-    {version = ">=1.6,<3", markers = "python_version >= \"3.5\" and platform_system == \"Windows\""},
     {version = ">=1.0,<3", markers = "python_version >= \"3.5\" and platform_system != \"Windows\""},
+    {version = ">=1.6,<3", markers = "python_version >= \"3.5\" and platform_system == \"Windows\""},
 ]
 
 [[package]]
@@ -2363,7 +2363,7 @@ testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pymdown-extensions"
-version = "9.6"
+version = "9.8"
 description = "Extension pack for Python Markdown."
 category = "main"
 optional = false
@@ -4489,8 +4489,8 @@ pylint = [
     {file = "pylint-2.15.4.tar.gz", hash = "sha256:5441e9294335d354b7bad57c1044e5bd7cce25c433475d76b440e53452fa5cb8"},
 ]
 pymdown-extensions = [
-    {file = "pymdown_extensions-9.6-py3-none-any.whl", hash = "sha256:1e36490adc7bfcef1fdb21bb0306e93af99cff8ec2db199bd17e3bf009768c11"},
-    {file = "pymdown_extensions-9.6.tar.gz", hash = "sha256:b956b806439bbff10f726103a941266beb03fbe99f897c7d5e774d7170339ad9"},
+    {file = "pymdown_extensions-9.8-py3-none-any.whl", hash = "sha256:8e62688a8b1128acd42fa823f3d429d22f4284b5e6dd4d3cd56721559a5a211b"},
+    {file = "pymdown_extensions-9.8.tar.gz", hash = "sha256:1bd4a173095ef8c433b831af1f3cb13c10883be0c100ae613560668e594651f7"},
 ]
 pyparsing = [
     {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
