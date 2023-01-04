@@ -904,6 +904,24 @@ table = ["tabulate (>=0.8.7)"]
 tests = ["funcy (>=1.17)", "matplotlib", "mypy (==0.981)", "pylint (==2.14.5)", "pytest (==7.1.2)", "pytest-cov (==3.0.0)", "pytest-mock (==3.8.2)", "pytest-sugar (==0.9.5)", "pytest-test-utils (>=0.0.6)", "tabulate (>=0.8.7)"]
 
 [[package]]
+name = "dvc-studio-client"
+version = "0.3.0"
+description = "Small library to post data from DVC/DVCLive to Iterative Studio"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+gitpython = "*"
+requests = "*"
+voluptuous = "*"
+
+[package.extras]
+dev = ["mkdocs (==1.3.1)", "mkdocs-gen-files (==0.3.5)", "mkdocs-material (==8.4.1)", "mkdocs-section-index (==0.3.4)", "mkdocstrings-python (==0.7.1)", "pytest (==7.2.0)", "pytest-cov (==3.0.0)", "pytest-mock (==3.8.2)", "pytest-sugar (==0.9.5)"]
+docs = ["mkdocs (==1.3.1)", "mkdocs-gen-files (==0.3.5)", "mkdocs-material (==8.4.1)", "mkdocs-section-index (==0.3.4)", "mkdocstrings-python (==0.7.1)"]
+tests = ["pytest (==7.2.0)", "pytest-cov (==3.0.0)", "pytest-mock (==3.8.2)", "pytest-sugar (==0.9.5)"]
+
+[[package]]
 name = "dvc-task"
 version = "0.1.3"
 description = "Extensible task queue used in DVC."
@@ -925,7 +943,7 @@ tests = ["celery-types (>=0.11.0)", "flaky (==3.7.0)", "mypy (==0.971)", "pylint
 
 [[package]]
 name = "dvclive"
-version = "0.12.0"
+version = "1.3.2"
 description = "Metric logger for ML projects."
 category = "main"
 optional = false
@@ -933,21 +951,24 @@ python-versions = ">=3.8"
 
 [package.dependencies]
 dvc-render = {version = ">=0.0.12", extras = ["table"]}
+dvc-studio-client = ">=0.3.0"
 "ruamel.yaml" = ">=0.17.11"
 
 [package.extras]
-all = ["catalyst (>22)", "datasets", "dvc (>=2.0.0)", "fastai", "lightgbm", "mmcv", "pandas (>=1.3.1)", "pillow", "pytorch-lightning (>=1.7)", "scikit-learn", "tensorflow", "transformers", "xgboost"]
+all = ["catalyst (>22)", "datasets", "dvc (>=2.38.1)", "fastai", "lightgbm", "matplotlib", "mmcv", "numpy", "pillow", "pytorch-lightning (>=1.7)", "scikit-learn", "tensorflow", "torch (<1.13)", "transformers", "xgboost"]
 catalyst = ["catalyst (>22)"]
-dev = ["catalyst (>22)", "datasets", "dvc (>=2.0.0)", "fastai", "lightgbm", "mmcv", "mypy (==0.981)", "pandas (>=1.3.1)", "pillow", "pylint (==2.15.0)", "pylint-plugin-utils (>=0.6)", "pytest (==7.1.2)", "pytest-cov (==3.0.0)", "pytest-mock (==3.8.2)", "pytest-sugar (==0.9.5)", "pytorch-lightning (>=1.7)", "scikit-learn", "tensorflow", "transformers", "xgboost"]
+dev = ["catalyst (>22)", "datasets", "dvc (>=2.38.1)", "fastai", "lightgbm", "matplotlib", "mmcv", "mypy (==0.981)", "numpy", "pillow", "pylint (==2.15.0)", "pylint-plugin-utils (>=0.6)", "pytest (==7.2.0)", "pytest-cov (==3.0.0)", "pytest-mock (==3.8.2)", "pytest-sugar (==0.9.5)", "pytorch-lightning (>=1.7)", "scikit-learn", "tensorflow", "torch (<1.13)", "transformers", "xgboost"]
+dvc = ["dvc (>=2.38.1)"]
 fastai = ["fastai"]
 huggingface = ["datasets", "transformers"]
-image = ["pillow"]
+image = ["numpy", "pillow"]
 lgbm = ["lightgbm"]
+markdown = ["matplotlib"]
 mmcv = ["mmcv"]
 plots = ["scikit-learn"]
-pytorch-lightning = ["pytorch-lightning (>=1.7)"]
+pytorch-lightning = ["pytorch-lightning (>=1.7)", "torch (<1.13)"]
 sklearn = ["scikit-learn"]
-tests = ["mypy (==0.981)", "pylint (==2.15.0)", "pylint-plugin-utils (>=0.6)", "pytest (==7.1.2)", "pytest-cov (==3.0.0)", "pytest-mock (==3.8.2)", "pytest-sugar (==0.9.5)"]
+tests = ["dvc (>=2.38.1)", "matplotlib", "mypy (==0.981)", "numpy", "pillow", "pylint (==2.15.0)", "pylint-plugin-utils (>=0.6)", "pytest (==7.2.0)", "pytest-cov (==3.0.0)", "pytest-mock (==3.8.2)", "pytest-sugar (==0.9.5)", "scikit-learn"]
 tf = ["tensorflow"]
 xgb = ["xgboost"]
 
@@ -1818,8 +1839,8 @@ python-versions = "*"
 [package.dependencies]
 msal = ">=0.4.1,<2.0.0"
 portalocker = [
-    {version = ">=1.6,<3", markers = "python_version >= \"3.5\" and platform_system == \"Windows\""},
     {version = ">=1.0,<3", markers = "python_version >= \"3.5\" and platform_system != \"Windows\""},
+    {version = ">=1.6,<3", markers = "python_version >= \"3.5\" and platform_system == \"Windows\""},
 ]
 
 [[package]]
@@ -3783,13 +3804,17 @@ dvc-render = [
     {file = "dvc-render-0.0.12.tar.gz", hash = "sha256:faf331a37f0f3999284e2c7d16d76a51d073b93156bed145f32d0215c699d26f"},
     {file = "dvc_render-0.0.12-py3-none-any.whl", hash = "sha256:4b108688b47086cdb8e9e5447aeaa6f14f6f6203cafc7e5ffd0009a7af06d14a"},
 ]
+dvc-studio-client = [
+    {file = "dvc-studio-client-0.3.0.tar.gz", hash = "sha256:dabe29fbf55795de82faf8157a35fa9c00fe0553867ef8013281503607a1f66b"},
+    {file = "dvc_studio_client-0.3.0-py3-none-any.whl", hash = "sha256:195a11f9340df4687fbc174ca7c38543dbc1fa07f36e4a4ded615a677828bebe"},
+]
 dvc-task = [
     {file = "dvc-task-0.1.3.tar.gz", hash = "sha256:1670cf7dedfe4ff80a19b0b1768bfa8ef708374f50278575c6be99047a1dda43"},
     {file = "dvc_task-0.1.3-py3-none-any.whl", hash = "sha256:007f7e4eb9b8688d208eeee60176b96e9225e8eb3acb37dac66dddf9c28818c5"},
 ]
 dvclive = [
-    {file = "dvclive-0.12.0-py3-none-any.whl", hash = "sha256:3a3ea900086237f790f1e39227c07bbc7dc4014adfc370a014b29b5eceba3794"},
-    {file = "dvclive-0.12.0.tar.gz", hash = "sha256:ca4538629f2cfde4c371adf6b03f660334bcef311d077185e7c9be38b7d314a6"},
+    {file = "dvclive-1.3.2-py3-none-any.whl", hash = "sha256:60fa7dbcb8abbaa0707c4984c1b5bbfff9d3b980a76d26e5b8371057972af6e8"},
+    {file = "dvclive-1.3.2.tar.gz", hash = "sha256:0b2996e57aa37c3308d51ef3bf76a8754ea5a749d7ba1f6af4bf94b53a614279"},
 ]
 entrypoints = [
     {file = "entrypoints-0.4-py3-none-any.whl", hash = "sha256:f174b5ff827504fd3cd97cc3f8649f3693f51538c7e4bdf3ef002c8429d42f9f"},
